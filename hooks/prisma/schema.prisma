@@ -13,29 +13,44 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
-  id Int @id @default(autoincrement())
-  name String
-  email String 
+model User {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String
   password String
 }
 
-model Zap{
-  id String @id @default(uuid())
+model Zap {
+  id        String   @id @default(uuid())
   triggerId String
-  trigger Trigger?
+  trigger   Trigger?
+  action    Action[]
 }
 
-model Trigger{
-  id    String @id @default(uuid())
-  zapId String @unique
-  zap   Zap @relation(fields: [zapId],references: [id])
+model Trigger {
+  id                 String            @id @default(uuid())
+  zapId              String            @unique
+  zap                Zap               @relation(fields: [zapId], references: [id])
   availableTriggerId String
-  availableTrigger AvailableTriggers @relation(fields: [availableTriggerId],references: [id])
+  availableTrigger   AvailableTriggers @relation(fields: [availableTriggerId], references: [id])
 }
 
-model AvailableTriggers{
-  id String @id @default(uuid())
-  name String  
+model AvailableTriggers {
+  id      String    @id @default(uuid())
+  name    String
   Trigger Trigger[]
+}
+
+model Action {
+  id              String           @id @default(uuid())
+  zapId           String
+  zap             Zap              @relation(fields: [zapId], references: [id])
+  actionId        String
+  availableAction AvailableActions @relation(fields: [actionId], references: [id])
+}
+
+model AvailableActions {
+  id     String   @id @default(uuid())
+  name   String
+  Action Action[]
 }

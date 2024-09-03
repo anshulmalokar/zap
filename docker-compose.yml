@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  db1:
+    image: postgres
+    environment:
+      POSTGRES_USER: johndoe
+      POSTGRES_PASSWORD: randompassword
+      POSTGRES_DB: mydb1
+    ports:
+      - "5432:5432"
+
+  db2:
+    image: postgres
+    environment:
+      POSTGRES_USER: janedoe
+      POSTGRES_PASSWORD: anotherpassword
+      POSTGRES_DB: mydb2
+    ports:
+      - "5433:5432"
