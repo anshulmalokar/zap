@@ -19,7 +19,9 @@ function main() {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("Starting the Processor");
         while (1) {
-            const all_data = yield db_1.default.zapRunOutBox.findMany({});
+            const all_data = yield db_1.default.zapRunOutBox.findMany({
+                take: 10
+            });
             yield Promise.all(all_data.map(data => {
                 const message = {
                     value: data.zapRunId

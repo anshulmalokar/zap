@@ -10,7 +10,9 @@ async function main() {
     const all_data: {
       id: string;
       zapRunId: string;
-    }[] = await prisma.zapRunOutBox.findMany({});
+    }[] = await prisma.zapRunOutBox.findMany({
+      take: 10
+    });
     
     await Promise.all(all_data.map(data => {
       const message:{

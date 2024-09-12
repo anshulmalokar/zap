@@ -31,7 +31,6 @@ app.post("/hooks/catch/:userId/:zapId", (req, res) => __awaiter(void 0, void 0, 
     const userId = req.params.userId;
     const zapId = req.params.zapId;
     const metaData = JSON.stringify(req.body);
-    console.log(metaData);
     try {
         yield db_1.default.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
             const zap_run = yield tx.zapRun.create({
