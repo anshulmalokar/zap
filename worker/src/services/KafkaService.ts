@@ -51,7 +51,6 @@ import {
           }) => {
             curr_partition = partition;
             const value = message.value?.toString();
-            await new Promise(r => setTimeout(r,2000));
             callback(value as string);
             await this.kafka_consumer.commitOffsets([
               {

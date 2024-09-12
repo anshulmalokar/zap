@@ -19,11 +19,9 @@ services:
     ports:
       - 22181:2181
 
-# Kafkaservice
   kafka:
     container_name: kafka
     image: confluentinc/cp-kafka:7.4.4
-# Ensure that the kafka service start after the Zookeeper service started
     depends_on:
       - zookeeper
     ports:

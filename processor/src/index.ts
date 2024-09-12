@@ -2,7 +2,7 @@ import { IHeaders } from "kafkajs";
 import prisma from "./db";
 import KafkaService from "./service/KafkaService";
 
-const TOPIC_NAME = "ZAP_PUBLISH";
+const TOPIC_NAME = "ZAP_PUBLISH_MESSAGE";
 
 async function main() {
   console.log("Starting the Processor");
