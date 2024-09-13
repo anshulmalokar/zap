@@ -1,3 +1,9 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -16,18 +22,17 @@ model User {
 
 model Zap {
   id        String   @id @default(uuid())
-  triggerId String
-  action    Action[]
   trigger   Trigger?
-  ZapRun    ZapRun[]
+  action    Action[]
+  ZapRun ZapRun[]
 }
 
 model Trigger {
   id                 String            @id @default(uuid())
   zapId              String            @unique
+  zap                Zap               @relation(fields: [zapId], references: [id])
   availableTriggerId String
   availableTrigger   AvailableTriggers @relation(fields: [availableTriggerId], references: [id])
-  zap                Zap               @relation(fields: [zapId], references: [id])
 }
 
 model AvailableTriggers {
@@ -39,9 +44,10 @@ model AvailableTriggers {
 model Action {
   id              String           @id @default(uuid())
   zapId           String
+  zap             Zap              @relation(fields: [zapId], references: [id])
   actionId        String
   availableAction AvailableActions @relation(fields: [actionId], references: [id])
-  zap             Zap              @relation(fields: [zapId], references: [id])
+  sortingOrder    Int       @default(0)
 }
 
 model AvailableActions {
@@ -51,10 +57,10 @@ model AvailableActions {
 }
 
 model ZapRun {
-  id           String        @id @default(uuid())
-  zapId        String
-  metaData     Json
-  zap          Zap           @relation(fields: [zapId], references: [id])
+  id       String @id @default(uuid())
+  zapId    String
+  zap      Zap    @relation(fields: [zapId], references: [id])
+  metaData Json
   ZapRunOutBox ZapRunOutBox?
 }
 

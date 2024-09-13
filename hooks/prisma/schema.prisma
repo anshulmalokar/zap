@@ -22,10 +22,8 @@ model User {
 
 model Zap {
   id        String   @id @default(uuid())
-  triggerId String
   trigger   Trigger?
   action    Action[]
-
   ZapRun ZapRun[]
 }
 
