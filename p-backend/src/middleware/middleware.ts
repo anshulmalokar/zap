@@ -14,7 +14,6 @@ export const authMiddleWare = async (
       if (validate === true) {
         next();
       }
-      throw new Error("");
     } else {
       return res.status(400).json({
         message: "Please send a valid jwt in the header",

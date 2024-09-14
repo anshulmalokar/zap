@@ -12,6 +12,19 @@ export class TokenManager{
     return token;
   }
 
+  public static async decodeToken(token: string){
+    try {
+      const decodedToken = await jsonwebtoken.decode(token);
+      if(!decodedToken){
+        throw new Error("Invalid token passed");
+      }
+      return decodedToken;
+    }catch(e){
+      console.log(e);
+      return "";
+    }
+  }
+
   public static async validateToken(token: string):Promise<boolean>{
     try{
       const validate = await jsonwebtoken.verify(token,process.env.JWT_SECRET as string);
