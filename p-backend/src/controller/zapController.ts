@@ -49,6 +49,7 @@ export const createZap = async (req: Request, res: Response) => {
         message: "Please provide a valid available Trigger",
       });
     }
+
     let zapId;
     await prisma.$transaction(async (tx) => {
       // First a zap needs to be created
@@ -63,6 +64,7 @@ export const createZap = async (req: Request, res: Response) => {
         data: {
           zapId: zap.id,
           availableTriggerId: availableTriggerId,
+          metaData: availableTriggerMetaData
         },
       });
       // Create the following actions one by one
@@ -72,6 +74,7 @@ export const createZap = async (req: Request, res: Response) => {
             zapId: zap.id,
             actionId: action.availableActionId,
             sortingOrder: idx + 1,
+            metaData: action.availableActionMetaData
           },
         });
       });
@@ -79,7 +82,7 @@ export const createZap = async (req: Request, res: Response) => {
     });
     return res.status(200).json({
       message: "Zap Successfully Created",
-      id: zapId,
+      // id: zapId,
     });
   } catch (e) {
     console.log(e);

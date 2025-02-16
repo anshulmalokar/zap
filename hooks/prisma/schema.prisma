@@ -35,6 +35,7 @@ model Trigger {
   zapId              String            @unique
   zap                Zap               @relation(fields: [zapId], references: [id])
   availableTriggerId String
+  metaData           Json
   availableTrigger   AvailableTriggers @relation(fields: [availableTriggerId], references: [id])
 }
 
@@ -50,6 +51,7 @@ model Action {
   zap             Zap              @relation(fields: [zapId], references: [id])
   actionId        String
   availableAction AvailableActions @relation(fields: [actionId], references: [id])
+  metaData        Json
   sortingOrder    Int       @default(0)
 }
 
@@ -70,5 +72,6 @@ model ZapRun {
 model ZapRunOutBox {
   id       String @id @default(uuid())
   zapRunId String @unique
+  metaData Json
   zapRun   ZapRun @relation(fields: [zapRunId], references: [id])
 }

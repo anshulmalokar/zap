@@ -9,7 +9,10 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "kafkajs": "^2.2.4"
+    "@types/nodemailer": "^6.4.17",
+    "dotenv": "^16.4.7",
+    "kafkajs": "^2.2.4",
+    "nodemailer": "^6.10.0"
   },
   "devDependencies": {
     "@types/node": "^22.5.4"
